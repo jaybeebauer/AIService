@@ -1,0 +1,98 @@
+﻿@model AIService.Models.Ticket
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ticket</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ticket_created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ticket_created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ticket_description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ticket_description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ticket_summary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ticket_summary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ticket_updated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ticket_updated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ticket_duedate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ticket_duedate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.asset_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asset.asset_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status.status_description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.category_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.category_description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.technician_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User1.user_firstname) @Html.DisplayFor(model => model.User1.user_lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customer_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_firstname) @Html.DisplayFor(model => model.User.user_lastname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ticket_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

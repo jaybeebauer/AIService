@@ -1,0 +1,29 @@
+﻿@model AIService.Models.Ticket
+
+@{
+    ViewBag.Title = "Delete Ticket";
+}
+
+<h2>Confirmed Ticket Deletion</h2>
+
+<div>
+    <p>
+        Please confirm you want to cancel the dinner titled: <b>@Html.DisplayFor(model => model.ticket_summary)</b>
+    </p>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input name="confirmDelete" type="submit" value="Delete" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

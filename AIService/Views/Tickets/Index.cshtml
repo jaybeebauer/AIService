@@ -1,0 +1,87 @@
+﻿@model IEnumerable<AIService.Models.Ticket>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ticket_created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ticket_description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ticket_summary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ticket_updated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ticket_duedate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.asset_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.category_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.technician_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customer_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ticket_created)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ticket_description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ticket_summary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ticket_updated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ticket_duedate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Asset.asset_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status.status_description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.category_description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User1.user_firstname) @Html.DisplayFor(modelItem => item.User1.user_lastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.user_firstname) @Html.DisplayFor(modelItem => item.User.user_lastname)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ticket_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ticket_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ticket_id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AIService" Class="AIServiceDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=VNNB01\SQLEXPRESS;Initial Catalog=AIService;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AIServiceConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Asset" Member="Assets">
+    <Type Name="Asset">
+      <Column Name="asset_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="asset_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="asset_ip" Type="System.String" DbType="VarChar(14) NOT NULL" CanBeNull="false" />
+      <Column Name="asset_note" Type="System.String" DbType="VarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="asset_cpu" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="asset_memory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="asset_os" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="asset_systemboottime" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="asset_lastscantime" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="asset_created" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Asset_Drive" Member="Drives" ThisKey="asset_id" OtherKey="asset_id" Type="Drive" />
+      <Association Name="Asset_Process" Member="Processes" ThisKey="asset_id" OtherKey="asset_id" Type="Process" />
+      <Association Name="Asset_Service" Member="Services" ThisKey="asset_id" OtherKey="asset_id" Type="Service" />
+      <Association Name="Asset_Ticket" Member="Tickets" ThisKey="asset_id" OtherKey="asset_id" Type="Ticket" />
+      <Association Name="User_Asset" Member="User" ThisKey="user_id" OtherKey="user_id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="user_email" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="user_phone" Type="System.String" DbType="VarChar(14) NOT NULL" CanBeNull="false" />
+      <Column Name="user_lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="user_istechnician" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="user_login" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="user_password" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Association Name="User_Asset" Member="Assets" ThisKey="user_id" OtherKey="user_id" Type="Asset" />
+      <Association Name="User_Ticket" Member="Tickets" ThisKey="user_id" OtherKey="customer_id" Type="Ticket" />
+      <Association Name="User_Ticket1" Member="Tickets1" ThisKey="user_id" OtherKey="technician_id" Type="Ticket" />
+      <Association Name="User_TicketNote" Member="TicketNotes" ThisKey="user_id" OtherKey="user_id" Type="TicketNote" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Category" Member="Categories">
+    <Type Name="Category">
+      <Column Name="category_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="category_description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Category_Ticket" Member="Tickets" ThisKey="category_id" OtherKey="category_id" Type="Ticket" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Drive" Member="Drives">
+    <Type Name="Drive">
+      <Column Name="drive_letter" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="drive_drivename" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="drive_totalsize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="drive_usedspace" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="drive_deviceid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="drive_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="drive_timestamp" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="drive_isactive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="asset_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Asset_Drive" Member="Asset" ThisKey="asset_id" OtherKey="asset_id" Type="Asset" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Process" Member="Processes">
+    <Type Name="Process">
+      <Column Name="process_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="process_pid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="process_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="process_executable" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="process_timestamp" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="asset_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Asset_Process" Member="Asset" ThisKey="asset_id" OtherKey="asset_id" Type="Asset" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Service" Member="Services">
+    <Type Name="Service">
+      <Column Name="service_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="service_status" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="service_timestamp" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="service_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="service_displayname" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="service_process_pid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="asset_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Asset_Service" Member="Asset" ThisKey="asset_id" OtherKey="asset_id" Type="Asset" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Status" Member="Status">
+    <Type Name="Status">
+      <Column Name="status_description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="status_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Status_Ticket" Member="Tickets" ThisKey="status_id" OtherKey="status_id" Type="Ticket" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ticket" Member="Tickets">
+    <Type Name="Ticket">
+      <Column Name="ticket_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ticket_created" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="ticket_description" Type="System.String" DbType="VarChar(600) NOT NULL" CanBeNull="false" />
+      <Column Name="ticket_summary" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="ticket_updated" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="ticket_duedate" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="asset_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="category_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="technician_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="customer_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ticket_mlreviewed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Ticket_TicketNote" Member="TicketNotes" ThisKey="ticket_id" OtherKey="ticket_id" Type="TicketNote" />
+      <Association Name="Asset_Ticket" Member="Asset" ThisKey="asset_id" OtherKey="asset_id" Type="Asset" IsForeignKey="true" />
+      <Association Name="Category_Ticket" Member="Category" ThisKey="category_id" OtherKey="category_id" Type="Category" IsForeignKey="true" />
+      <Association Name="User_Ticket" Member="User" ThisKey="customer_id" OtherKey="user_id" Type="User" IsForeignKey="true" />
+      <Association Name="Status_Ticket" Member="Status" ThisKey="status_id" OtherKey="status_id" Type="Status" IsForeignKey="true" />
+      <Association Name="User_Ticket1" Member="User1" ThisKey="technician_id" OtherKey="user_id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TicketNote" Member="TicketNotes">
+    <Type Name="TicketNote">
+      <Column Name="note_created" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="note_updated" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="note_description" Type="System.String" DbType="VarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="note_isresolution" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ticketnote_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ticket_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Ticket_TicketNote" Member="Ticket" ThisKey="ticket_id" OtherKey="ticket_id" Type="Ticket" IsForeignKey="true" />
+      <Association Name="User_TicketNote" Member="User" ThisKey="user_id" OtherKey="user_id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
